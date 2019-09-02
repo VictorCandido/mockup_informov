@@ -1,0 +1,12 @@
+body {
+    background-color: #F9F9F9
+}
+
+.table-container {
+    margin: 0 20px;
+}
+
+#table {
+    width: 100%;
+    overflow: scroll;
+}
