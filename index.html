@@ -5,87 +5,115 @@
 
     <link rel="stylesheet" href="src/css/style.css">
 
-    <!-- jExcel -->
+    <!-- jExcel CSS -->
     <link rel="stylesheet" href="libs/jexcel/jexcel.min.css">
+
+    <!-- jSuites css -->
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
+    
+    <!-- jExcel js -->
     <script src="libs/jexcel/jexcel.min.js"></script>
+    
+    <!-- jSuites js -->
     <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
 
-    <!-- Materialize -->
+    <!-- Materialize css -->
     <link rel="stylesheet" href="libs/materialize/materialize.min.css">
+
+    <!-- Materialize js -->
     <script src="libs/materialize/materialize.min.js"></script>
 
     <!-- jQuery -->
     <script src="libs/jquery/jquery-3.4.1.min.js"></script>
+
+    <!-- Google Font Icons -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
+    <script src="assets/content.js"></script>
+
 </head>
 <body>
     
     <div class="table-container">
+        <div class="nav-wrapper">
+            <img src="assets/logo.png" alt="It's Informov" class="brand-logo right">
+            <h4>PLANILHA ORÇAMENTÁRIA</h4>
+        </div>
+        
         <div class="row">
-            <div class="input-field col m6">
-                <label for="cliente">Cliente</label>
-                <input type="text" name="cliente" id="cliente" value="NOME DO CLIENTE" readonly>
-            </div>
+            <div class="card darken-1">
+                
+                <h5 id="fechar"><i class="small material-icons">arrow_drop_up</i> Dados do Cliente</h5>
+                <h5 id="abrir"><i class="small material-icons">arrow_drop_down</i> Dados do Cliente</h5>
 
-            <div class="input-field col m2">
-                <label for="proposta">Proposta</label>
-                <input type="text" name="proposta" id="proposta" value="2019.0000.00.00" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="revisao">Revisão</label>
-                <input type="text" name="revisao" id="revisao" value="00" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="data">Data</label>
-                <input type="text" name="data" id="data" value="05/02/2019" readonly>
+                <div class="card-content white-text">
+                    <div class="content">
+                        <div class="row">
+                            <div class="input-field col m6">
+                                <label for="cliente">Cliente</label>
+                                <input type="text" name="cliente" id="cliente" value="NOME DO CLIENTE" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="proposta">Proposta</label>
+                                <input type="text" name="proposta" id="proposta" value="2019.0000.00.00" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="revisao">Revisão</label>
+                                <input type="text" name="revisao" id="revisao" value="00" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="data">Data</label>
+                                <input type="text" name="data" id="data" value="05/02/2019" readonly>
+                            </div>
+                
+                            <div class="input-field col m6">
+                                <label for="obra">Obra</label>
+                                <input type="text" name="obra" id="obra" value="TIPO DE OBRA" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="orcamento">Orçamento</label>
+                                <input type="text" name="orcamento" id="orcamento" value="NNNNNNNNNNN" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="comercial">Comercial</label>
+                                <input type="text" name="comercial" id="comercial" value="NNNNNNNNNN" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="cliente">Cliente</label>
+                                <input type="text" name="cliente" id="cliente" value="NNNNNNNNNN" readonly>
+                            </div>
+                
+                            <div class="input-field col m6">
+                                <label for="endereco">Endereço</label>
+                                <input type="text" name="endereco" id="endereco" value="ENDEREÇO" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="validade">Validade</label>
+                                <input type="text" name="validade" id="validade" value="30 dias" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="prazo">Prazo Execução</label>
+                                <input type="text" name="prazo" id="prazo" value="120 dias" readonly>
+                            </div>
+                
+                            <div class="input-field col m2">
+                                <label for="area">Área</label>
+                                <input type="text" name="area" id="area" value="100,00m2" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="input-field col m6">
-                <label for="obra">Obra</label>
-                <input type="text" name="obra" id="obra" value="TIPO DE OBRA" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="orcamento">Orçamento</label>
-                <input type="text" name="orcamento" id="orcamento" value="NNNNNNNNNNN" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="comercial">Comercial</label>
-                <input type="text" name="comercial" id="comercial" value="NNNNNNNNNN" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="cliente">Cliente</label>
-                <input type="text" name="cliente" id="cliente" value="NNNNNNNNNN" readonly>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col m6">
-                <label for="endereco">Endereço</label>
-                <input type="text" name="endereco" id="endereco" value="ENDEREÇO" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="validade">Validade</label>
-                <input type="text" name="validade" id="validade" value="30 dias" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="prazo">Prazo Execução</label>
-                <input type="text" name="prazo" id="prazo" value="120 dias" readonly>
-            </div>
-
-            <div class="input-field col m2">
-                <label for="area">Área</label>
-                <input type="text" name="area" id="area" value="100,00m2" readonly>
-            </div>
-        </div>
+        
     </div>
 
     <div class="table-container">

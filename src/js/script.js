@@ -1,35 +1,20 @@
-const data = [
-    ["", 1, "", "", "OBRA CIVIL", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", 1.01, "", "", "PROJETOS TÉCNICOS, DOCUMENTARES E SEGUROS", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.01", "", "", "ART & SEGURO DE OBRAS", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.01.001", "", "", "Anotação de responsabilidade Técnica - ART", "CREA-SP", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.01.002", "", "", "Registro de Responsabilidade Técnica - RRT", "CAU-SP", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.01.003", "", "", "Seguro de risco de engenharia e responsabilidade civil", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02", "", "", "PROJETOS EXECUTIVOS", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02.001", "", "", "Projeto de Arquitetura", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02.002", "", "", "Projeto de Ar Condicionado", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02.003", "", "", "Projeto de Cabeamento Estruturado", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02.004", "", "", "Projeto de Instalações Elétricas", "", "", "", "", "", "", "", "", "", "", ""],
-    ["", "01.01.02.005", "", "", "Projeto de Instalações Hidráulicas", "", "", "", "", "", "", "", "", "", "", ""]
-]
-
 const columns = [
-    { title: "ITEM CLIENTE", width: 120, wordWrap:true },
-    { title: "ITEM", width: 100 },
-    { title: "RM COD_SERV", width: 120 },
-    { title: "COD_PROJ", width: 120 },
-    { title: "SERVICOS", width: 300, type: "text", readOnly: false },
-    { title: "DESCRICAO", width: 380, wordWrap:true },
-    { title: "UNID", width: 80 },
-    { title: "QUANTID", width: 100 },
-    { title: "PRECO UNIT MAT + MDO", width: 150 },
-    { title: "PRECO TOTAL", width: 120 },
-    { title: "MAT", width: 120 },
-    { title: "MDO", width: 120 },
-    { title: "MAT + MDO", width: 120 },
-    { title: "MAT - TOTAL", width: 120 },
-    { title: "MAT - TOTAL", width: 120 },
-    { title: "MAT + MDO - TOTAL", width: 150 }
+    { type: "text", title: "ITEM CLIENTE", width: 120, wordWrap:true },
+    { type: "text", title: "ITEM", width: 100 },
+    { type: "text", title: "RM COD_SERV", width: 120 },
+    { type: "text", title: "COD_PROJ", width: 120 },
+    { type: "text", title: "SERVICOS", width: 300, type: "text", readOnly: true },
+    { type: "text", title: "DESCRICAO", width: 380, wordWrap:true },
+    { type: "text", title: "UNID", width: 80 },
+    { type: "text", title: "QUANTID", width: 100 },
+    { type: "text", title: "PRECO UNIT MAT + MDO", width: 150, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "PRECO TOTAL", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MAT", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MDO", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MAT + MDO", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MAT - TOTAL", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MAT - TOTAL", width: 120, mask:'#.##,00', decimal:',' },
+    { type: "text", title: "MAT + MDO - TOTAL", width: 150, mask:'#.##,00', decimal:',' }
 ]
 
 const nestedHeaders = [
@@ -48,44 +33,25 @@ var selectionActive = function(instance, x1, y1, x2, y2, origin) {
 
 
 var table = jexcel(document .getElementById("table"), {
-    data: data,
+    data: content,
     columns: columns,
     nestedHeaders: nestedHeaders,
     minDimensions: [16, 30],
-    style: {
-        A1: 'background-color: gray',
-        B1: 'background-color: gray',
-        C1: 'background-color: gray',
-        D1: 'background-color: gray',
-        E1: 'background-color: gray',
-        F1: 'background-color: gray',
-        G1: 'background-color: gray',
-        H1: 'background-color: gray',
-        I1: 'background-color: gray',
-        J1: 'background-color: gray',
-        K1: 'background-color: gray',
-        L1: 'background-color: gray',
-        M1: 'background-color: gray',
-        N1: 'background-color: gray',
-        O1: 'background-color: gray',
-        P1: 'background-color: gray',
-        A2: 'background-color: gray',
-        B2: 'background-color: gray',
-        C2: 'background-color: gray',
-        D2: 'background-color: gray',
-        E2: 'background-color: gray',
-        F2: 'background-color: gray',
-        G2: 'background-color: gray',
-        H2: 'background-color: gray',
-        I2: 'background-color: gray',
-        J2: 'background-color: gray',
-        K2: 'background-color: gray',
-        L2: 'background-color: gray',
-        M2: 'background-color: gray',
-        N2: 'background-color: gray',
-        O2: 'background-color: gray',
-        P2: 'background-color: gray',
-    },
+    toolbar:[
+        { type:'i', content:'undo', onclick:function() { table.undo(); } },
+        { type:'i', content:'redo', onclick:function() { table.redo(); } },
+        { type:'i', content:'save', onclick:function () { table.download(); } },
+        { type:'select', k:'font-family', v:['Arial','Verdana'] },
+        { type:'select', k:'font-size', v:['9px','10px','11px','12px','13px','14px','15px','16px','17px','18px','19px','20px'] },
+        { type:'i', content:'format_align_left', k:'text-align', v:'left' },
+        { type:'i', content:'format_align_center', k:'text-align', v:'center' },
+        { type:'i', content:'format_align_right', k:'text-align', v:'right' },
+        { type:'i', content:'format_bold', k:'font-weight', v:'bold' },
+        { type:'color', content:'format_color_text', k:'color' },
+        { type:'color', content:'format_color_fill', k:'background-color' },
+        { type:'text', content:'format_color_fill', k:'background-color' },
+    ],
+    style: style,
     contextMenu: (obj, x, y, e) => {
         var items = [];
 
@@ -257,3 +223,25 @@ var table = jexcel(document .getElementById("table"), {
          return items;
     }
 });
+
+/**
+ * Criação de funções fora da tabela com jQuery
+ */
+
+$("#abrir").click(e => {
+    $(".content").toggle('2');
+    $("#abrir").hide();
+    $("#fechar").show();
+});
+
+$("#fechar").click(e => {
+    $(".content").toggle('2');
+    $("#fechar").hide();
+    $("#abrir").show();
+});
+
+$(document).ready(e => {
+    $("#fechar").hide();
+    $(".content").toggle();
+});
+

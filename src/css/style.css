@@ -10,4 +10,37 @@ body {
     width: 100%;
     height: 600px;
     overflow: scroll;
+    font-size: 12px;
+}
+
+.nav-wrapper {
+    margin-bottom: 30px;
+}
+
+.input-field {
+    margin-bottom: 0px !important;
+}
+
+#abrir:hover, #fechar:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 150px;
+}
+
+select.jexcel_toolbar_item {
+    width: 80px;
+    height: 30px;
+}
+
+.jexcel>tbody>tr>td {
+    border-top: 0px ;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+
+.jexcel_toolbar_item {
+    margin: 0 5px !important;
 }
