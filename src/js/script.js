@@ -14,12 +14,12 @@ const data = [
 ]
 
 const columns = [
-    { title: "ITEM CLIENTE", width: 120 },
+    { title: "ITEM CLIENTE", width: 120, wordWrap:true },
     { title: "ITEM", width: 100 },
     { title: "RM COD_SERV", width: 120 },
     { title: "COD_PROJ", width: 120 },
     { title: "SERVICOS", width: 300, type: "text", readOnly: false },
-    { title: "DESCRICAO", width: 380 },
+    { title: "DESCRICAO", width: 380, wordWrap:true },
     { title: "UNID", width: 80 },
     { title: "QUANTID", width: 100 },
     { title: "PRECO UNIT MAT + MDO", width: 150 },
