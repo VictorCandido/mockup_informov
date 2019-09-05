@@ -6,7 +6,7 @@ body {
     margin: 0 20px;
 }
 
-thead {
+thead>.jexcel_nested{
     font-weight: bold;
 }
 
@@ -14,7 +14,7 @@ thead {
     text-align: center;
 }
 
-#table, #table-bdi {
+#table, #table-bdi, #table-compat {
     width: 100%;
     max-height: 600px;
     overflow: scroll;

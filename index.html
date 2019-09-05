@@ -117,19 +117,24 @@
                 <ul class="tabs">
                     <li class="tab col s3"><a href="#orcamentaria">Planilha Orçamentária</a></li>
                     <li class="tab col s3"><a href="#bdi">Planilha de Definição BDI</a></li>
-                    <!-- <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
-                    <li class="tab col s3"><a href="#test4">Test 4</a></li> -->
+                    <li class="tab col s3"><a href="#compat">Planilha Compatibilizada</a></li>
                 </ul>
             </div>
 
             <!-- PLANILHA ORÇAMENTÁRIA -->
             <div id="orcamentaria" class="table-container">
+                <label id="statusServidor">Carregando...</label>
                 <div id="table"></div>
             </div>
             
             <!-- PLANILHA DEFINIÇÃO BDI -->
             <div id="bdi" class="table-container">
                 <div id="table-bdi"></div>
+            </div>
+
+            <!-- PLANILHA COMPATIBILIZADA -->
+            <div id="compat" class="table-container">
+                <div id="table-compat"></div>
             </div>
         </div>
         
@@ -140,6 +145,7 @@
     <script src="libs/materialize/materialize.min.js"></script>
     <script src="src/js/planilha_orcamentaria/config.js"></script>
     <script src="src/js/planilha_bdi/config.js"></script>
+    <script src="src/js/planilha_compat/config.js"></script>
     <script src="src/js/config.js"></script>
     <script src="src/js/script.js"></script>
 </body>
