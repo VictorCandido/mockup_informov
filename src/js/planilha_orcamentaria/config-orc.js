@@ -12,23 +12,23 @@ const Orcamentariacolumns = [
     { type: "text", width: 380, wordWrap:true },
     { type: "text", width: 80 },
     { type: "numeric", width: 100 },
-    { type: "numeric", width: 150, mask:'R$ #.##,00', decimal:',' },
-    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
+    { type: "numeric", width: 150, mask:'R$ #.##,00', decimal:',', readOnly: true },
+    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',', readOnly: true },
 
     { width: 30, readOnly: true },
 
     { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
     { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
-    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
-    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
-    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',' },
-    { type: "numeric", width: 150, mask:'R$ #.##,00', decimal:',' },
+    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',', readOnly: true },
+    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',', readOnly: true },
+    { type: "numeric", width: 120, mask:'R$ #.##,00', decimal:',', readOnly: true },
+    { type: "numeric", width: 150, mask:'R$ #.##,00', decimal:',', readOnly: true },
     
     { width: 30, readOnly: true },
 
     { type: "text", width: 150 },
-    { type: "numeric", width: 150, mask:'#.##,00', decimal:',' },
-    { type: "numeric", width: 150, mask:'#.##,00', decimal:',' },
+    { type: "numeric", width: 150, mask:'#.##,00', decimal:',', readOnly: false },
+    { type: "numeric", width: 150, mask:'#.##,00', decimal:',', readOnly: false },
     { type: "text", width: 180, },
 ]
 
@@ -79,22 +79,20 @@ const OrcamentarianestedHeaders = [
  * @param {*} value Valor da célula
  */
 const change_orcamentista = (instance, cell, x, y, value) => {
-    var colK = returnColumnId("K");
-    var colUnidMatMdo = returnColumnId("PRECO UNIT MAT + MDO");
-    var colBDI = returnColumnId("BDI");
-    var colDesc = returnColumnId("DESC");
+    var colK = returnColumnId("orc", "K");
+    var colUnidMatMdo = returnColumnId("orc", "PRECO UNIT MAT + MDO");
+    var colBDI = returnColumnId("orc", "BDI");
+    var colDesc = returnColumnId("orc", "DESC");
     
 
     /* ALTERANDO COLUNA K */
     if(colK == x){
         var valorK = returnKValues(value.toLocaleUpperCase());
-        var bdi = valorK.BDI;
-        var desc = valorK.DESC;
         var destinoBDI = jexcel.getColumnNameFromId([colBDI, y]);
         var destinoDESC = jexcel.getColumnNameFromId([colDesc, y]);
 
-        tableOrcamentaria.setValue(destinoBDI, bdi);
-        tableOrcamentaria.setValue(destinoDESC, desc);
+        tableOrcamentaria.setValue(destinoBDI, valorK.BDI);
+        tableOrcamentaria.setValue(destinoDESC, valorK.DESC);
     }
 
 
@@ -113,8 +111,15 @@ const change_orcamentista = (instance, cell, x, y, value) => {
  * @param {*} cellName 
  */
 const updateTable = (instance, cell, col, row, val, label, cellName) => {
-    // if (col == 3) {
-    //     alert(val)
+    // var colPrecoTotal = returnColumnId("orc", "PRECO TOTAL");
+    // var colMatMdoTotal = returnColumnId("orc", "MAT + MDO - TOTAL");
+
+    // if(col == colPrecoTotal){
+
+    // }
+
+    // if(col == colMatMdoTotal){
+
     // }
 }
 
@@ -122,11 +127,31 @@ const updateTable = (instance, cell, col, row, val, label, cellName) => {
  * Fução que traz o index da coluna inserida
  * @param {String} columnName Header da coluna a pesquisar
  */
-const returnColumnId = (columnName) => {
-    var colunas = tableOrcamentaria.getHeaders().split(",");
-    for(var index in colunas){
-        if(returnHeaderName(index) == columnName){
-            return index;
+const returnColumnId = (table, columnName) => {
+    if(table === "orc"){
+        if(tableOrcamentaria){
+            var colunas = tableOrcamentaria.getHeaders().split(",");
+            for(var index in colunas){
+                if(returnHeaderName(index) == columnName){
+                    return index;
+                }
+            }
+        }else{
+            return false;
+        }
+    }else if(table === "bdi"){
+        var colunas = tableBDI.getHeaders().split(",");
+        for(var index in colunas){
+            if(colunas[index] == columnName){
+                return index;
+            }
+        }
+    }else if(table === "compat"){
+        var colunas = tableCompat.getHeaders().split(",");
+        for(var index in colunas){
+            if(colunas[index] == columnName){
+                return index;
+            }
         }
     }
 }

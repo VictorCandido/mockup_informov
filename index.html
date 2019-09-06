@@ -38,13 +38,12 @@
         
         <!-- FORMULÁRIO -->
         <div class="row">
+            <h5 id="fechar" style="display: none"><i class="small material-icons">arrow_drop_up</i> Dados do Cliente</h5>
+            <h5 id="abrir"><i class="small material-icons">arrow_drop_down</i> Dados do Cliente</h5>
+            
             <div class="card darken-1">
-                
-                <h5 id="fechar"><i class="small material-icons">arrow_drop_up</i> Dados do Cliente</h5>
-                <h5 id="abrir"><i class="small material-icons">arrow_drop_down</i> Dados do Cliente</h5>
-
-                <div class="card-content white-text">
-                    <div class="content">
+                <div class="card-content white-text content">
+                    <div>
                         <div class="row">
                             <div class="input-field col m6">
                                 <label for="cliente">Cliente</label>
@@ -112,8 +111,10 @@
         </div>
 
         <!-- TABSTRIP -->
-        <div class="row">
+        <div class="row" id="tabstrip">
             <div class="col s12">
+                <!-- <i class="small material-icons btnFullScreen">fullscreen</i>
+                <i class="small material-icons btnFullScreen">fullscreen_exit</i> -->
                 <ul class="tabs">
                     <li class="tab col s3"><a href="#orcamentaria">Planilha Orçamentária</a></li>
                     <li class="tab col s3"><a href="#bdi">Planilha de Definição BDI</a></li>
@@ -124,17 +125,17 @@
             <!-- PLANILHA ORÇAMENTÁRIA -->
             <div id="orcamentaria" class="table-container">
                 <label id="statusServidor">Carregando...</label>
-                <div id="table"></div>
+                <div id="table" class="table"></div>
             </div>
             
             <!-- PLANILHA DEFINIÇÃO BDI -->
             <div id="bdi" class="table-container">
-                <div id="table-bdi"></div>
+                <div id="table-bdi" class="table"></div>
             </div>
 
             <!-- PLANILHA COMPATIBILIZADA -->
             <div id="compat" class="table-container">
-                <div id="table-compat"></div>
+                <div id="table-compat" class="table"></div>
             </div>
         </div>
         
@@ -143,9 +144,9 @@
 
     <!-- Materialize js -->
     <script src="libs/materialize/materialize.min.js"></script>
-    <script src="src/js/planilha_orcamentaria/config.js"></script>
-    <script src="src/js/planilha_bdi/config.js"></script>
-    <script src="src/js/planilha_compat/config.js"></script>
+    <script src="src/js/planilha_orcamentaria/config-orc.js"></script>
+    <script src="src/js/planilha_bdi/config-bdi.js"></script>
+    <script src="src/js/planilha_compat/config-compat.js"></script>
     <script src="src/js/config.js"></script>
     <script src="src/js/script.js"></script>
 </body>

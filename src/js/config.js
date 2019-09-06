@@ -194,7 +194,39 @@ const toolbar = [
     { type:'color', content:'format_color_text', k:'color' },
     { type:'color', content:'format_color_fill', k:'background-color' },
     { type:'text', content:'format_color_fill', k:'background-color' },
+    { type:'i', content:'fullscreen', k: "fullscreen", onclick: () => fullscreen()  },
+    { type:'i', content:'fullscreen_exit', k: "fullscreen_exit", onclick: () => fullscreen_exit() },
 ]
+
+const fullscreen = (table) => {
+    $("#tabstrip").addClass("over");
+
+    // $("#" + table).animate({ width: "100%", height: "100%" }, "slow")
+
+
+    $(".jexcel_toolbar_item.material-icons").each((i, e) => {
+        if($(e).attr("data-k") == "fullscreen"){
+            $(e).hide()
+        }
+
+        if($(e).attr("data-k") == "fullscreen_exit"){
+            $(e).show()
+        }
+    })
+}
+
+const fullscreen_exit = (table) => {
+    $("#tabstrip").removeClass("over");
+    $(".jexcel_toolbar_item.material-icons").each((i, e) => {
+        if($(e).attr("data-k") == "fullscreen_exit"){
+            $(e).hide()
+        }
+
+        if($(e).attr("data-k") == "fullscreen"){
+            $(e).show()
+        }
+    })
+}
 
 // var selectionActive = function(instance, x1, y1, x2, y2, origin) {
 //     var cellName1 = jexcel.getColumnNameFromId([x1, y1]);

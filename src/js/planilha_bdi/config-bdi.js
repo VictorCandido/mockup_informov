@@ -27,6 +27,51 @@ const bdiNestedHeaders = [
     ]
 ]
 
+const updateTableBDI = (instance, cell, col, row, val, label, cellName) => {
+    // VERIFICANDO OS K QUANDO ALTERAR ALGUM VALOR
+    // if (col == 0) {
+        
+    // }
+}
+
+const changeBDI = (instance, cell, x, y, value) => {
+    if (x == 1 || x == 2) {
+        updateData(instance, cell, x, y, value);
+    }
+}
+
+const updateData = (instance, cell, x, y, value) => {
+    if(tableOrcamentaria){
+        var colBDI = returnColumnId("orc", "BDI");
+        var colK = returnColumnId("orc", "K");
+        var colDESC = returnColumnId("orc", "DESC");
+
+        var valorK = tableBDI.getRowData(y)[0];
+        var linhasK = tableOrcamentaria.getColumnData(colK);
+        for(var i in linhasK){
+            if(linhasK[i].toUpperCase() == valorK.toUpperCase()){
+                var values = returnKValues(linhasK[i].toUpperCase());
+                var destinoBDI = jexcel.getColumnNameFromId([colBDI, i]);
+                var destinoDESC = jexcel.getColumnNameFromId([colDESC, i]);
+                
+                tableOrcamentaria.setValue(destinoBDI, values.BDI);
+                tableOrcamentaria.setValue(destinoDESC, values.DESC);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 const contentBdi = [
     ["K1", "1,1500", "1,0000", "Geral", "", " R$ 304.369,77 ", " R$ 350.025,23 ", "", " R$ 3.220,23 ", "", "'=>> Mão de Obra"],
     ["K2", "1,2000", "1,0000", "Fat Direto", "", " R$ -   ", " R$ -   ", "", " R$ 301.149,54 ", "", "'=>> Mão de Obra"],

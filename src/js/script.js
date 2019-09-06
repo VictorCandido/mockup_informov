@@ -16,14 +16,21 @@ $.ajax({
             minDimensions: [16, 10],
             toolbar: toolbar,
             style: JSON.parse(res.style),
+            allowDeleteColumn: false,
             contextMenu: menuItens,
             onchange: change_orcamentista,
             updateTable: updateTable
         });
         $("#statusServidor").text("Carregado com sucesso!");
+        $(".jexcel_toolbar_item.material-icons").each((i, e) => {
+            if($(e).attr("data-k") == "fullscreen_exit"){
+                $(e).hide()
+            }
+        });
     },
 	error: res => {
 		console.log("Falha", res);
+        $("#statusServidor").text("Falha ao salvar os dados!");
     }
 })
 
@@ -38,8 +45,15 @@ const tableBDI = jexcel(document.getElementById("table-bdi"), {
     allowInsertColumn: false,
     allowDeleteColumn: false,
     allowRenameColumn: false,
-    contextMenu: menuItens
+    contextMenu: menuItens,
+    onchange: changeBDI,
+    updateTable: updateTableBDI
 });
+$(".jexcel_toolbar_item.material-icons").each((i, e) => {
+    if($(e).attr("data-k") == "fullscreen_exit"){
+        $(e).hide()
+    }
+})
 
 const tableCompat = jexcel(document.getElementById("table-compat"), {
     data: contentCompat,
@@ -52,6 +66,11 @@ const tableCompat = jexcel(document.getElementById("table-compat"), {
     allowDeleteColumn: false,
     allowRenameColumn: false,
 });
+$(".jexcel_toolbar_item.material-icons").each((i, e) => {
+    if($(e).attr("data-k") == "fullscreen_exit"){
+        $(e).hide()
+    }
+})
 
 const returnKValues = (valor) => {
     var columnK = tableBDI.getColumnData(0);
@@ -68,9 +87,9 @@ const returnKValues = (valor) => {
 }
 
 // FUNÇÃO PERSONALIZADA PARA USAR DENTRO DA CELULA
-const TESTE = (v1, v2) => {
-    var value = v1 * tableCompat.getValue(v2);
-    return value
+const TESTE = (v1) => {
+    console.log(v1);
+    return v1
 }
 
 
@@ -79,13 +98,13 @@ const TESTE = (v1, v2) => {
  */
 
 $("#abrir").click(e => {
-    $(".content").toggle('2');
+    $(".content").slideDown('2');
     $("#abrir").hide();
     $("#fechar").show();
 });
 
 $("#fechar").click(e => {
-    $(".content").toggle('2');
+    $(".content").slideUp('2');
     $("#fechar").hide();
     $("#abrir").show();
 });
@@ -97,7 +116,6 @@ $("#fechar").click(e => {
 $(document).ready(e => {
     $('.tabs').tabs();
 
-    $("#fechar").hide();
     $(".content").toggle();
 
     // $(".readonly").css('color', 'black');
