@@ -4,7 +4,9 @@
 
 var OrcData = "";
 var tableOrcamentaria;
+var tableBDI;
 
+/* IMPLEMENTAÇÃO DA PLANILHA ORÇAMENTISTA */
 $.ajax({
 	url:"https://mockup-informov.herokuapp.com/orcamentista/1",
 	type:"GET",
@@ -34,26 +36,41 @@ $.ajax({
     }
 })
 
-
-const tableBDI = jexcel(document.getElementById("table-bdi"), {
-    data: contentBdi,
-    columns: bdiColumns,
-    nestedHeaders: bdiNestedHeaders,
-    minDimensions: [11, 5],
-    toolbar: toolbar,
-    style: styleBdi,
-    allowInsertColumn: false,
-    allowDeleteColumn: false,
-    allowRenameColumn: false,
-    contextMenu: menuItens,
-    onchange: changeBDI,
-    updateTable: updateTableBDI
-});
-$(".jexcel_toolbar_item.material-icons").each((i, e) => {
-    if($(e).attr("data-k") == "fullscreen_exit"){
-        $(e).hide()
+/* IMPLEMENTAÇÃO DA PLANILHA DE BDI */
+$.ajax({
+	url:"https://mockup-informov.herokuapp.com/bdi/1",
+	type:"GET",
+	success: res => {
+        tableBDI = jexcel(document.getElementById("table-bdi"), {
+            data: JSON.parse(res.data),
+            columns: bdiColumns,
+            nestedHeaders: bdiNestedHeaders,
+            minDimensions: [11, 5],
+            toolbar: toolbar,
+            style: JSON.parse(res.style),
+            allowInsertColumn: false,
+            allowDeleteColumn: false,
+            allowRenameColumn: false,
+            contextMenu: menuItens,
+            onchange: changeBDI,
+            updateTable: updateTableBDI
+        });
+        $("#statusServidorBDI").text("Carregado com sucesso!");
+        $(".jexcel_toolbar_item.material-icons").each((i, e) => {
+            if($(e).attr("data-k") == "fullscreen_exit"){
+                $(e).hide()
+            }
+        })
+    },
+	error: res => {
+		console.log("Falha", res);
+        $("#statusServidorBDI").text("Falha ao salvar os dados!");
     }
 })
+
+
+
+
 
 const tableCompat = jexcel(document.getElementById("table-compat"), {
     data: contentCompat,
@@ -88,7 +105,7 @@ const returnKValues = (valor) => {
 
 // FUNÇÃO PERSONALIZADA PARA USAR DENTRO DA CELULA
 const TESTE = (v1) => {
-    console.log(v1);
+    alert(v1);
     return v1
 }
 

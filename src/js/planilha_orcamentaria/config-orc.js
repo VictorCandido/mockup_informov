@@ -1,7 +1,3 @@
-/**
-  Arquivo de configuração para Planilha Orçamentária
-*/
-
 // Colunas da Planilha Orçamentária
 const Orcamentariacolumns = [
     { type: "text", width: 120, wordWrap:true },
@@ -79,20 +75,30 @@ const OrcamentarianestedHeaders = [
  * @param {*} value Valor da célula
  */
 const change_orcamentista = (instance, cell, x, y, value) => {
-    var colK = returnColumnId("orc", "K");
-    var colUnidMatMdo = returnColumnId("orc", "PRECO UNIT MAT + MDO");
-    var colBDI = returnColumnId("orc", "BDI");
-    var colDesc = returnColumnId("orc", "DESC");
+    var K_NUMBER = returnColumnId("orc", "K");
+    var PRECO_TOTAL_NUMBER = returnColumnId("orc", "PRECO TOTAL");
+    var MAT_MDO_TOTAL_NUMBER = returnColumnId("orc", "MAT + MDO - TOTAL");
+    var BDI_NUMBER = returnColumnId("orc", "BDI");
+    var DESC_NUMBER = returnColumnId("orc", "DESC");
     
 
     /* ALTERANDO COLUNA K */
-    if(colK == x){
+    if(x == K_NUMBER){
         var valorK = returnKValues(value.toLocaleUpperCase());
-        var destinoBDI = jexcel.getColumnNameFromId([colBDI, y]);
-        var destinoDESC = jexcel.getColumnNameFromId([colDesc, y]);
+        var destinoBDI = jexcel.getColumnNameFromId([BDI_NUMBER, y]);
+        var destinoDESC = jexcel.getColumnNameFromId([DESC_NUMBER, y]);
 
         tableOrcamentaria.setValue(destinoBDI, valorK.BDI);
         tableOrcamentaria.setValue(destinoDESC, valorK.DESC);
+
+    }
+    /* ALTERANDO COLUNA PREÇO TOTAL */
+    else if(x == PRECO_TOTAL_NUMBER){
+        calcCustoVendaTotal()   //  Calcula total de custo e venda
+    }
+    /* ALTERANDO COLUNA MAT + MDO - TOTAL */
+    else if(x == MAT_MDO_TOTAL_NUMBER){
+        calcCustoVendaTotal()   //  Calcula total de custo e venda
     }
 
 
@@ -102,25 +108,59 @@ const change_orcamentista = (instance, cell, x, y, value) => {
 
 /**
  * Atualiza todos os dados da tabela
- * @param {*} instance 
- * @param {*} cell 
- * @param {*} col 
- * @param {*} row 
- * @param {*} val 
- * @param {*} label 
- * @param {*} cellName 
  */
 const updateTable = (instance, cell, col, row, val, label, cellName) => {
-    // var colPrecoTotal = returnColumnId("orc", "PRECO TOTAL");
-    // var colMatMdoTotal = returnColumnId("orc", "MAT + MDO - TOTAL");
+}
 
-    // if(col == colPrecoTotal){
 
-    // }
+/**
+ * Calcula o total de custo e venda e insere o valor na tabela BDI.
+ */
+const calcCustoVendaTotal = () => {
+    /* COLUNAS ORÇAMENTISTA */
+    var K_NUMBER = returnColumnId("orc", "K");
+    var MAT_MDO_TOTAL_NUMBER = returnColumnId("orc", "MAT + MDO - TOTAL");
+    var PRECO_TOTAL_NUMBER = returnColumnId("orc", "PRECO TOTAL");
 
-    // if(col == colMatMdoTotal){
+    /* COLUNAS BDI */
+    var TIPO_NUMBER = returnColumnId("bdi", "TIPO");
+    var CUSTO_NUMBER = returnColumnId("bdi", "CUSTO");
+    var VENDA_NUMBER = returnColumnId("bdi", "VENDA");
 
-    // }
+    var getColumnData = (column) => tableBDI.getColumnData(column);
+    var k_column = tableOrcamentaria.getColumnData(K_NUMBER);   // COLUNA K
+    var dadosArray = new Array();
+
+    for(var i in k_column){
+        let custoColumn = jexcel.getColumnNameFromId([MAT_MDO_TOTAL_NUMBER, i]);
+        let vendaColumn = jexcel.getColumnNameFromId([PRECO_TOTAL_NUMBER, i]);
+
+        let contentCusto = tableOrcamentaria.getCell(custoColumn).textContent.split(".").join("");
+        let contentVenda = tableOrcamentaria.getCell(vendaColumn).textContent.split(".").join("");
+
+        let custo = contentCusto == "" ? 0 : parseFloat(contentCusto.split("R$ ")[1].split(",").join("."));
+        let venda = contentVenda == "" ? 0 : parseFloat(contentVenda.split("R$ ")[1].split(",").join("."));
+
+        dadosArray.push({
+            tipo: k_column[i].toLocaleUpperCase(),
+            custo: custo,
+            venda: venda
+        });
+    }
+
+    var result = _.groupBy(dadosArray, "tipo");
+
+    for(var i in getColumnData()){
+        let custo = _.sumBy(result[ getColumnData(TIPO_NUMBER)[i].toLocaleUpperCase() ], "custo");
+        let venda = _.sumBy(result[ getColumnData(TIPO_NUMBER)[i].toLocaleUpperCase() ], "venda");
+
+        let destinoCusto = jexcel.getColumnNameFromId([CUSTO_NUMBER, i]);
+        let destinoVenda = jexcel.getColumnNameFromId([VENDA_NUMBER, i]);
+
+        tableBDI.setValue(destinoCusto, custo);
+        tableBDI.setValue(destinoVenda, venda);
+    }
+
 }
 
 /**
@@ -191,6 +231,7 @@ const dataSave = () => {
             console.log("Sucesso", res);
         },
         error: res => {
+            $("#statusServidor").text("Falha ao salvar os dados!");
             console.log("Falha", res);
         }
     })

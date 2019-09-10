@@ -26,6 +26,9 @@
     <!-- Google Font Icons -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
+    <!-- Lodash -->
+    <script src="libs/lodash/core.js"></script>
+
 </head>
 <body>
     
@@ -125,16 +128,52 @@
             <!-- PLANILHA ORÇAMENTÁRIA -->
             <div id="orcamentaria" class="table-container">
                 <label id="statusServidor">Carregando...</label>
+
+                <div class="toolbar">
+                    <i class="material-icons toolbar-options">undo</i>
+                    <i class="material-icons toolbar-options">redo</i>
+                    <i class="material-icons toolbar-options">save</i>
+                    <select class="toolbar-select" name="font" id="font">
+                        <option value="arial">Arial</option>
+                        <option value="verdana">Verdana</option>
+                    </select>
+                    <select class="toolbar-select" name="font-size" id="font-size">
+                        <option value="9px">9px</option>
+                        <option value="10px">10px</option>
+                        <option value="11px">11px</option>
+                        <option value="12px">12px</option>
+                        <option value="13px">13px</option>
+                        <option value="14px">14px</option>
+                        <option value="15px">15px</option>
+                        <option value="16px">16px</option>
+                        <option value="17px">17px</option>
+                        <option value="18px">18px</option>
+                        <option value="19px">19px</option>
+                        <option value="20px">20px</option>
+                    </select>
+                    <i class="material-icons toolbar-options">format_align_left</i>
+                    <i class="material-icons toolbar-options">format_align_center</i>
+                    <i class="material-icons toolbar-options">format_align_right</i>
+                    <i class="material-icons toolbar-options">format_bold</i>
+                    <i class="material-icons toolbar-options">format_color_text</i>
+                    <i class="material-icons toolbar-options">format_color_fill</i>
+                    <i class="material-icons toolbar-options">format_color_fill</i>
+                    <i class="material-icons toolbar-options">fullscreen</i>
+                    <i class="material-icons toolbar-options">fullscreen_exit</i>
+                </div>
+
                 <div id="table" class="table"></div>
             </div>
             
             <!-- PLANILHA DEFINIÇÃO BDI -->
             <div id="bdi" class="table-container">
+                <label id="statusServidorBDI">Carregando...</label>
                 <div id="table-bdi" class="table"></div>
             </div>
 
             <!-- PLANILHA COMPATIBILIZADA -->
             <div id="compat" class="table-container">
+                <label id="statusServidorCompat">Carregando...</label>
                 <div id="table-compat" class="table"></div>
             </div>
         </div>
